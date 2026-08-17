@@ -11,9 +11,50 @@
  * without notice. The frontend degrades to a "view on X" link if this fails.
  */
 
+const https = require('https');
+
 const SCREEN_NAME = '616019';
 const SOURCE = `https://syndication.twitter.com/srv/timeline-profile/screen-name/${SCREEN_NAME}?dnt=true&lang=en`;
 const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36';
+
+/**
+ * Use the https module rather than global fetch. Cloudflare (which fronts this
+ * endpoint) buckets undici's connection fingerprint as a bot and returns 429
+ * with x-rate-limit-remaining: 0, while an https.request from the same process,
+ * same IP and same headers gets 200 with quota to spare. Verified side by side.
+ */
+function get(url, redirects = 0) {
+  return new Promise((resolve, reject) => {
+    const u = new URL(url);
+    const req = https.request({
+      hostname: u.hostname,
+      path: u.pathname + u.search,
+      method: 'GET',
+      timeout: 8000,
+      headers: {
+        'User-Agent': UA,
+        Accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+        'Accept-Language': 'en-US,en;q=0.9',
+      },
+    }, (res) => {
+      const { statusCode, headers } = res;
+
+      if (statusCode >= 300 && statusCode < 400 && headers.location && redirects < 3) {
+        res.resume();
+        return resolve(get(new URL(headers.location, url).toString(), redirects + 1));
+      }
+
+      let body = '';
+      res.setEncoding('utf8');
+      res.on('data', (chunk) => { body += chunk; });
+      res.on('end', () => resolve({ status: statusCode, body }));
+    });
+
+    req.on('timeout', () => req.destroy(new Error('upstream timed out')));
+    req.on('error', reject);
+    req.end();
+  });
+}
 
 function buildText(tweet) {
   let text = tweet.full_text || tweet.text || '';
@@ -69,17 +110,13 @@ function shapeTweet(tweet) {
 }
 
 module.exports = async (req, res) => {
-  // Cache at the edge: X is polled at most once every 10 min per region.
-  res.setHeader('Cache-Control', 's-maxage=600, stale-while-revalidate=3600');
   res.setHeader('Content-Type', 'application/json; charset=utf-8');
 
   try {
-    const upstream = await fetch(SOURCE, {
-      headers: { 'User-Agent': UA, 'Accept-Language': 'en-US,en;q=0.9' },
-    });
-    if (!upstream.ok) throw new Error(`upstream responded ${upstream.status}`);
+    const upstream = await get(SOURCE);
+    if (upstream.status !== 200) throw new Error(`upstream responded ${upstream.status}`);
 
-    const html = await upstream.text();
+    const html = upstream.body;
     const blob = html.match(/<script id="__NEXT_DATA__" type="application\/json">([\s\S]*?)<\/script>/);
     if (!blob) throw new Error('timeline payload not found in response');
 
@@ -95,6 +132,10 @@ module.exports = async (req, res) => {
     const author = entries.find((e) => e.content && e.content.tweet && e.content.tweet.user);
     const u = author ? author.content.tweet.user : null;
 
+    // Poll X at most once per 10 min per region; keep serving the last good copy
+    // for an hour while revalidating, and for a day if X starts failing.
+    res.setHeader('Cache-Control', 's-maxage=600, stale-while-revalidate=3600, stale-if-error=86400');
+
     return res.status(200).json({
       ok: true,
       user: u ? {
@@ -107,8 +148,9 @@ module.exports = async (req, res) => {
       posts,
     });
   } catch (err) {
-    // Don't cache failures for long — the upstream is flaky by nature.
-    res.setHeader('Cache-Control', 's-maxage=60');
-    return res.status(200).json({ ok: false, error: String((err && err.message) || err), posts: [] });
+    // Fail with a real error status and no-store, so the CDN keeps serving the
+    // last good payload (stale-if-error) instead of caching this failure.
+    res.setHeader('Cache-Control', 'no-store');
+    return res.status(503).json({ ok: false, error: String((err && err.message) || err), posts: [] });
   }
 };
