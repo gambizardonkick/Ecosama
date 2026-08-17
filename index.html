@@ -3,479 +3,939 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stake Japan - ECOSAMA Code for Free Rakeback</title>
-    <!-- Google Fonts & Font Awesome for icons -->
+    <title>Stake Japan — ECOSAMA5 Code for Free Rakeback</title>
+    <meta name="description" content="Activate code ECOSAMA5 on Stake for instant rakeback on every wager. No wager requirements, instant crypto cashouts.">
+    <meta name="theme-color" content="#07090e">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Rajdhani:wght@600;700&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
         :root {
-            --neon-green: #00ff66;
-            --neon-glow: rgba(0, 255, 102, 0.4);
-            --dark-bg: #07090e;
-            --card-bg: rgba(18, 24, 38, 0.65);
-            --card-border: rgba(0, 255, 102, 0.15);
+            --green: #3ee87f;
+            --green-deep: #10a85a;
+            --glow: rgba(62, 232, 127, .35);
+
+            --bg: #070a0c;
+            --bg-2: #0b0f13;
+            --surface: rgba(255, 255, 255, .035);
+            --surface-2: rgba(255, 255, 255, .06);
+            --line: rgba(255, 255, 255, .09);
+            --line-strong: rgba(62, 232, 127, .32);
+
+            --text: #eef2f4;
+            --muted: #97a3ad;
+            --muted-dim: #6d7a85;
+
+            --r-sm: 12px;
+            --r-md: 18px;
+            --r-lg: 26px;
+            --shadow: 0 24px 60px -20px rgba(0, 0, 0, .8);
+            --ease: cubic-bezier(.22, 1, .36, 1);
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
 
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--dark-bg);
-            color: #fff;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.65;
             overflow-x: hidden;
-            line-height: 1.6;
-            background-image: 
-                radial-gradient(circle at 50% 0%, rgba(0, 255, 102, 0.12), transparent 40%),
-                radial-gradient(circle at 100% 50%, rgba(0, 150, 255, 0.08), transparent 30%);
-            background-attachment: fixed;
+            -webkit-font-smoothing: antialiased;
+            letter-spacing: -0.011em;
         }
 
-        /* Glassmorphism utility */
-        .glass {
-            background: var(--card-bg);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid var(--card-border);
-            border-radius: 20px;
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        /* ── Ambient background ───────────────────────────── */
+        .bg-layer {
+            position: fixed;
+            inset: 0;
+            z-index: -2;
+            pointer-events: none;
+            background:
+                radial-gradient(900px 620px at 50% -12%, rgba(62, 232, 127, .16), transparent 62%),
+                radial-gradient(700px 500px at 92% 18%, rgba(0, 132, 255, .09), transparent 60%),
+                radial-gradient(680px 520px at 4% 62%, rgba(62, 232, 127, .07), transparent 60%),
+                var(--bg);
         }
 
-        /* Header Styling */
-        header {
-            text-align: center;
-            padding: 100px 20px 80px;
+        .bg-grid {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            pointer-events: none;
+            background-image:
+                linear-gradient(rgba(255, 255, 255, .035) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, .035) 1px, transparent 1px);
+            background-size: 64px 64px;
+            mask-image: radial-gradient(760px 620px at 50% 8%, #000 10%, transparent 78%);
+            -webkit-mask-image: radial-gradient(760px 620px at 50% 8%, #000 10%, transparent 78%);
+        }
+
+        /* ── Typography primitives ────────────────────────── */
+        h1, h2, h3, h4 {
+            font-family: 'Space Grotesk', 'Inter', sans-serif;
+            font-weight: 700;
+            line-height: 1.08;
+            letter-spacing: -0.03em;
+        }
+
+        a { color: inherit; }
+
+        .container { width: 100%; max-width: 1140px; margin: 0 auto; padding: 0 24px; }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            font-size: .74rem;
+            font-weight: 700;
+            letter-spacing: .16em;
+            text-transform: uppercase;
+            color: var(--green);
+            background: rgba(62, 232, 127, .07);
+            border: 1px solid rgba(62, 232, 127, .22);
+            padding: 7px 15px;
+            border-radius: 999px;
+        }
+
+        .eyebrow .dot {
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            background: var(--green);
+            box-shadow: 0 0 0 0 var(--glow);
+            animation: pulse 2.4s infinite;
+        }
+
+        @keyframes pulse {
+            0%   { box-shadow: 0 0 0 0 rgba(62, 232, 127, .55); }
+            70%  { box-shadow: 0 0 0 8px rgba(62, 232, 127, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(62, 232, 127, 0); }
+        }
+
+        /* ── Nav ──────────────────────────────────────────── */
+        .nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            transition: background .35s var(--ease), border-color .35s var(--ease), backdrop-filter .35s;
+            border-bottom: 1px solid transparent;
+        }
+
+        .nav.scrolled {
+            background: rgba(7, 10, 12, .72);
+            backdrop-filter: blur(18px) saturate(160%);
+            -webkit-backdrop-filter: blur(18px) saturate(160%);
+            border-bottom-color: var(--line);
+        }
+
+        .nav-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+            height: 72px;
+        }
+
+        .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+
+        .brand svg { width: 82px; height: auto; color: var(--text); transition: color .3s var(--ease); }
+        .brand:hover svg { color: var(--green); }
+
+        .brand-tag {
+            font-size: .68rem;
+            font-weight: 700;
+            letter-spacing: .14em;
+            text-transform: uppercase;
+            color: var(--muted-dim);
+            padding-left: 12px;
+            border-left: 1px solid var(--line);
+        }
+
+        .nav-links { display: flex; align-items: center; gap: 30px; }
+
+        .nav-links a {
+            font-size: .9rem;
+            font-weight: 500;
+            color: var(--muted);
+            text-decoration: none;
+            transition: color .2s;
+        }
+
+        .nav-links a:hover { color: var(--text); }
+
+        /* ── Buttons ──────────────────────────────────────── */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-family: 'Inter', sans-serif;
+            font-size: .95rem;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+            text-decoration: none;
+            border: 1px solid transparent;
+            border-radius: 999px;
+            padding: 13px 26px;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: transform .25s var(--ease), box-shadow .25s var(--ease),
+                        background .25s var(--ease), border-color .25s var(--ease), color .25s var(--ease);
+        }
+
+        .btn i { font-size: .9em; transition: transform .25s var(--ease); }
+
+        .btn-primary {
+            background: linear-gradient(180deg, #56f394 0%, var(--green) 45%, var(--green-deep) 100%);
+            color: #041308;
+            box-shadow: 0 10px 30px -8px var(--glow), inset 0 1px 0 rgba(255, 255, 255, .45);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 18px 44px -10px rgba(62, 232, 127, .6), inset 0 1px 0 rgba(255, 255, 255, .5);
+        }
+
+        .btn-primary:hover i.fa-arrow-right-long { transform: translateX(4px); }
+
+        .btn-ghost {
+            background: var(--surface);
+            border-color: var(--line);
+            color: var(--text);
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-ghost:hover {
+            background: var(--surface-2);
+            border-color: var(--line-strong);
+            transform: translateY(-2px);
+        }
+
+        .btn-lg { padding: 17px 34px; font-size: 1.02rem; }
+
+        /* ── Hero ─────────────────────────────────────────── */
+        .hero {
             position: relative;
-            z-index: 1;
+            padding: 168px 0 96px;
+            text-align: center;
         }
 
-        .stake-logo {
-            position: absolute;
-            top: 25px;
-            left: 25px;
-            width: 110px;
-            height: auto;
-            color: var(--neon-green);
-            filter: drop-shadow(0 0 10px var(--neon-glow));
-            transition: transform 0.3s ease;
+        .hero h1 {
+            font-size: clamp(2.6rem, 7vw, 4.6rem);
+            margin: 26px 0 0;
         }
 
-        .stake-logo:hover {
-            transform: scale(1.05);
-        }
-
-        .badge {
-            display: inline-block;
-            background: rgba(0, 255, 102, 0.1);
-            color: var(--neon-green);
-            padding: 8px 18px;
-            border-radius: 50px;
-            font-size: 0.85rem;
-            font-weight: 800;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            border: 1px solid rgba(0, 255, 102, 0.3);
-            margin-bottom: 20px;
-            box-shadow: 0 0 15px rgba(0, 255, 102, 0.2);
-        }
-
-        header h1 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: clamp(2.5rem, 5vw, 4.5rem);
-            font-weight: 900;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            color: #fff;
-            text-shadow: 0 0 30px rgba(0, 255, 102, 0.3);
-            margin-bottom: 15px;
-        }
-
-        header h1 span {
-            color: var(--neon-green);
-            background: linear-gradient(180deg, #fff 0%, var(--neon-green) 100%);
+        .hero h1 .grad {
+            background: linear-gradient(102deg, #ffffff 4%, var(--green) 52%, #0fd473 96%);
             -webkit-background-clip: text;
+            background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        header p {
-            font-size: 1.2rem;
-            margin-bottom: 35px;
-            color: #a0aec0;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
+        .hero .lead {
+            font-size: clamp(1.02rem, 2.2vw, 1.18rem);
+            color: var(--muted);
+            max-width: 560px;
+            margin: 22px auto 0;
         }
 
-        /* Code Promo Box */
-        .promo-box {
+        /* Promo code */
+        .promo {
             display: inline-flex;
             align-items: center;
-            justify-content: space-between;
-            background: rgba(0, 0, 0, 0.6);
-            border: 2px dashed var(--neon-green);
-            padding: 10px 10px 10px 25px;
-            border-radius: 50px;
-            margin-bottom: 30px;
-            gap: 20px;
-            box-shadow: 0 0 25px rgba(0, 255, 102, 0.15);
+            gap: 6px;
+            margin-top: 38px;
+            padding: 8px 8px 8px 10px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, .04);
+            border: 1px solid var(--line);
+            backdrop-filter: blur(12px);
+            box-shadow: var(--shadow);
+        }
+
+        .promo-label {
+            font-size: .7rem;
+            font-weight: 700;
+            letter-spacing: .14em;
+            text-transform: uppercase;
+            color: var(--muted-dim);
+            padding: 0 14px 0 12px;
         }
 
         .promo-code {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.5rem;
-            font-weight: 900;
-            color: var(--neon-green);
-            letter-spacing: 3px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.15rem;
+            font-weight: 700;
+            letter-spacing: .1em;
+            color: var(--green);
+            text-transform: uppercase;
+            padding: 8px 20px;
+            border-radius: 999px;
+            background: rgba(62, 232, 127, .08);
+            border: 1px dashed rgba(62, 232, 127, .34);
         }
 
         .copy-btn {
-            background: var(--neon-green);
-            color: #000;
-            border: none;
-            padding: 10px 22px;
-            border-radius: 50px;
-            font-weight: 800;
-            cursor: pointer;
-            transition: all 0.2s ease;
             font-family: 'Inter', sans-serif;
-        }
-
-        .copy-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 15px var(--neon-green);
-        }
-
-        /* Hero Button */
-        .cta-button {
+            font-size: .86rem;
+            font-weight: 700;
             display: inline-flex;
             align-items: center;
-            gap: 12px;
-            background: linear-gradient(135deg, #00ff66 0%, #00b347 100%);
-            color: #000;
-            padding: 18px 42px;
-            text-decoration: none;
-            font-weight: 900;
-            font-family: 'Rajdhani', sans-serif;
-            font-size: 1.4rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            border-radius: 50px;
-            box-shadow: 0 0 35px var(--neon-glow);
-            transition: all 0.3s ease;
-            border: none;
+            gap: 8px;
+            padding: 11px 20px;
+            border-radius: 999px;
+            border: 1px solid var(--line);
+            background: var(--surface-2);
+            color: var(--text);
+            cursor: pointer;
+            transition: all .22s var(--ease);
         }
 
-        .cta-button:hover {
-            transform: translateY(-3px) scale(1.03);
-            box-shadow: 0 0 50px rgba(0, 255, 102, 0.7);
+        .copy-btn:hover { border-color: var(--line-strong); color: var(--green); }
+        .copy-btn.done { background: var(--green); border-color: var(--green); color: #041308; }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 14px;
+            margin-top: 34px;
         }
 
-        /* Section Layouts */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
+        .trust {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px 32px;
+            margin-top: 40px;
+            font-size: .84rem;
+            color: var(--muted-dim);
         }
 
-        .section {
-            padding: 60px 20px;
-            text-align: center;
-        }
+        .trust span { display: inline-flex; align-items: center; gap: 8px; }
+        .trust i { color: var(--green); font-size: .82rem; }
 
-        .section-title {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 2.2rem;
-            font-weight: 900;
-            margin-bottom: 15px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .section-subtitle {
-            color: #a0aec0;
-            font-size: 1.1rem;
-            max-width: 700px;
-            margin: 0 auto 40px;
-        }
-
-        /* Features Cards Grid */
-        .features {
+        /* ── Stats ────────────────────────────────────────── */
+        .stats {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-            margin-top: 30px;
-        }
-
-        .feature {
-            padding: 40px 30px;
-            text-align: left;
-            position: relative;
+            grid-template-columns: repeat(4, 1fr);
+            border: 1px solid var(--line);
+            border-radius: var(--r-lg);
+            background: linear-gradient(180deg, rgba(255, 255, 255, .045), rgba(255, 255, 255, .015));
+            backdrop-filter: blur(14px);
             overflow: hidden;
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: var(--shadow);
         }
 
-        .feature::before {
+        .stat { padding: 30px 20px; text-align: center; border-right: 1px solid var(--line); }
+        .stat:last-child { border-right: 0; }
+
+        .stat b {
+            display: block;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(1.5rem, 3.4vw, 2.05rem);
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            color: var(--text);
+        }
+
+        .stat span {
+            font-size: .74rem;
+            font-weight: 600;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+            color: var(--muted-dim);
+        }
+
+        /* ── Sections ─────────────────────────────────────── */
+        .section { padding: 104px 0; }
+
+        .section-head { text-align: center; max-width: 640px; margin: 0 auto 56px; }
+
+        .section-head h2 {
+            font-size: clamp(1.85rem, 4.2vw, 2.7rem);
+            margin: 18px 0 0;
+        }
+
+        .section-head p { color: var(--muted); margin-top: 16px; font-size: 1.03rem; }
+
+        .accent { color: var(--green); }
+
+        /* ── Feature cards ────────────────────────────────── */
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(276px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            position: relative;
+            padding: 34px 30px 32px;
+            border-radius: var(--r-lg);
+            border: 1px solid var(--line);
+            background: linear-gradient(180deg, rgba(255, 255, 255, .05), rgba(255, 255, 255, .015));
+            backdrop-filter: blur(14px);
+            overflow: hidden;
+            transition: transform .45s var(--ease), border-color .45s var(--ease), box-shadow .45s var(--ease);
+        }
+
+        .card::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: linear-gradient(90deg, transparent, var(--neon-green), transparent);
+            inset: 0 0 auto;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(62, 232, 127, .75), transparent);
             opacity: 0;
-            transition: opacity 0.3s;
+            transition: opacity .45s var(--ease);
         }
 
-        .feature:hover {
-            transform: translateY(-8px);
-            border-color: rgba(0, 255, 102, 0.4);
-            box-shadow: 0 12px 40px rgba(0, 255, 102, 0.15);
+        .card::after {
+            content: '';
+            position: absolute;
+            width: 300px; height: 300px;
+            top: -160px; right: -140px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(62, 232, 127, .14), transparent 68%);
+            opacity: 0;
+            transition: opacity .5s var(--ease);
+            pointer-events: none;
         }
 
-        .feature:hover::before {
-            opacity: 1;
+        .card:hover {
+            transform: translateY(-6px);
+            border-color: var(--line-strong);
+            box-shadow: 0 30px 60px -28px rgba(62, 232, 127, .35);
         }
 
-        .feature-icon {
-            font-size: 2.5rem;
-            color: var(--neon-green);
-            margin-bottom: 20px;
-            display: inline-block;
-            filter: drop-shadow(0 0 10px var(--neon-glow));
+        .card:hover::before, .card:hover::after { opacity: 1; }
+
+        .card-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px; height: 50px;
+            border-radius: 15px;
+            font-size: 1.24rem;
+            color: var(--green);
+            background: rgba(62, 232, 127, .09);
+            border: 1px solid rgba(62, 232, 127, .2);
+            margin-bottom: 22px;
         }
 
-        .feature h3 {
-            font-family: 'Rajdhani', sans-serif;
-            font-size: 1.6rem;
+        .card h3 { font-size: 1.28rem; margin-bottom: 10px; }
+        .card p { color: var(--muted); font-size: .95rem; }
+
+        /* ── Steps ────────────────────────────────────────── */
+        .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+
+        .step {
+            position: relative;
+            padding: 32px 28px;
+            border-radius: var(--r-lg);
+            border: 1px solid var(--line);
+            background: rgba(255, 255, 255, .025);
+        }
+
+        .step-num {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: .78rem;
             font-weight: 700;
-            color: #fff;
-            margin-bottom: 10px;
+            letter-spacing: .1em;
+            color: var(--green);
+            display: inline-block;
+            padding: 4px 11px;
+            border-radius: 8px;
+            background: rgba(62, 232, 127, .09);
+            margin-bottom: 18px;
         }
 
-        .feature p {
-            color: #94a3b8;
-            font-size: 0.95rem;
-            line-height: 1.6;
-        }
+        .step h3 { font-size: 1.15rem; margin-bottom: 8px; }
+        .step p { color: var(--muted); font-size: .93rem; }
 
-        /* Social Hub Grid */
-        .social-hub {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-            margin-top: 20px;
-        }
+        /* ── Social hub ───────────────────────────────────── */
+        .social-hub { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: start; }
 
-        .social-box {
-            padding: 40px 30px;
+        .panel {
+            padding: 36px 30px;
+            border-radius: var(--r-lg);
+            border: 1px solid var(--line);
+            background: linear-gradient(180deg, rgba(255, 255, 255, .05), rgba(255, 255, 255, .015));
+            backdrop-filter: blur(14px);
             display: flex;
             flex-direction: column;
             align-items: center;
+            text-align: center;
         }
 
-        .twitter-profile img {
-            width: 90px;
-            height: 90px;
+        .avatar {
+            width: 84px; height: 84px;
             border-radius: 50%;
-            border: 3px solid var(--neon-green);
-            box-shadow: 0 0 20px var(--neon-glow);
-            margin-bottom: 20px;
+            object-fit: cover;
+            padding: 3px;
+            background: linear-gradient(140deg, var(--green), transparent 65%);
+            box-shadow: 0 0 34px -6px var(--glow);
         }
 
-        .tweets-container {
-            width: 100%;
-            max-height: 500px;
-            overflow-y: auto;
-            margin-top: 20px;
-            padding-right: 5px;
-        }
+        .panel h3 { font-size: 1.3rem; margin-top: 18px; }
+        .panel .handle { font-size: .9rem; color: var(--muted-dim); margin-top: 4px; }
+        .panel p { color: var(--muted); font-size: .95rem; margin-top: 10px; max-width: 340px; }
+        .panel .btn { margin-top: 22px; }
 
-        /* Custom Scrollbar */
-        .tweets-container::-webkit-scrollbar {
-            width: 6px;
-        }
-        .tweets-container::-webkit-scrollbar-thumb {
-            background: rgba(0, 255, 102, 0.3);
-            border-radius: 10px;
-        }
-
-        .social-btn {
+        .big-icon {
             display: inline-flex;
             align-items: center;
-            gap: 10px;
-            color: #fff;
-            text-decoration: none;
-            font-weight: 700;
-            border: 2px solid var(--neon-green);
-            padding: 12px 30px;
-            border-radius: 50px;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            font-family: 'Rajdhani', sans-serif;
-            letter-spacing: 1px;
-            margin-top: 15px;
+            justify-content: center;
+            width: 84px; height: 84px;
+            border-radius: 26px;
+            font-size: 2.1rem;
+            color: var(--green);
+            background: rgba(62, 232, 127, .08);
+            border: 1px solid rgba(62, 232, 127, .2);
         }
 
-        .social-btn:hover {
-            background: var(--neon-green);
-            color: #000;
-            box-shadow: 0 0 25px var(--neon-green);
-            transform: scale(1.05);
+        .tweets {
+            width: 100%;
+            max-height: 440px;
+            overflow-y: auto;
+            margin-top: 26px;
+            padding-right: 6px;
+            text-align: left;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(62, 232, 127, .35) transparent;
+            mask-image: linear-gradient(180deg, #000 88%, transparent);
+            -webkit-mask-image: linear-gradient(180deg, #000 88%, transparent);
         }
 
-        footer {
-            background: #040508;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            color: #64748b;
+        .tweets::-webkit-scrollbar { width: 5px; }
+        .tweets::-webkit-scrollbar-thumb { background: rgba(62, 232, 127, .3); border-radius: 10px; }
+        .tweets::-webkit-scrollbar-track { background: transparent; }
+
+        /* ── FAQ ──────────────────────────────────────────── */
+        .faq { max-width: 760px; margin: 0 auto; display: grid; gap: 12px; }
+
+        .faq details {
+            border: 1px solid var(--line);
+            border-radius: var(--r-md);
+            background: rgba(255, 255, 255, .025);
+            transition: border-color .3s var(--ease), background .3s var(--ease);
+        }
+
+        .faq details[open] { border-color: var(--line-strong); background: rgba(62, 232, 127, .04); }
+
+        .faq summary {
+            list-style: none;
+            cursor: pointer;
+            padding: 20px 24px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.03rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+        }
+
+        .faq summary::-webkit-details-marker { display: none; }
+
+        .faq summary i { color: var(--green); font-size: .82rem; transition: transform .3s var(--ease); }
+        .faq details[open] summary i { transform: rotate(45deg); }
+
+        .faq .answer { padding: 0 24px 22px; color: var(--muted); font-size: .95rem; }
+
+        /* ── Final CTA ────────────────────────────────────── */
+        .cta-band {
+            position: relative;
             text-align: center;
-            padding: 40px 20px;
-            font-size: 0.9rem;
-            margin-top: 60px;
+            padding: 68px 32px;
+            border-radius: 32px;
+            border: 1px solid var(--line-strong);
+            background:
+                radial-gradient(620px 300px at 50% 0%, rgba(62, 232, 127, .17), transparent 70%),
+                linear-gradient(180deg, rgba(255, 255, 255, .05), rgba(255, 255, 255, .015));
+            backdrop-filter: blur(14px);
+            overflow: hidden;
+            box-shadow: var(--shadow);
         }
 
-        footer a {
-            color: var(--neon-green);
+        .cta-band h2 { font-size: clamp(1.8rem, 4.4vw, 2.6rem); }
+        .cta-band p { color: var(--muted); margin: 16px auto 30px; max-width: 480px; }
+
+        /* ── Footer ───────────────────────────────────────── */
+        footer {
+            border-top: 1px solid var(--line);
+            background: rgba(0, 0, 0, .35);
+            margin-top: 100px;
+            padding: 46px 0 40px;
+        }
+
+        .foot-inner {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .foot-links { display: flex; gap: 24px; flex-wrap: wrap; }
+
+        .foot-links a {
+            font-size: .88rem;
+            color: var(--muted);
             text-decoration: none;
-            font-weight: bold;
+            transition: color .2s;
         }
 
-        footer a:hover {
-            text-decoration: underline;
+        .foot-links a:hover { color: var(--green); }
+
+        .foot-note {
+            margin-top: 28px;
+            padding-top: 24px;
+            border-top: 1px solid var(--line);
+            font-size: .8rem;
+            color: var(--muted-dim);
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 12px;
         }
 
-        /* Mobile Responsiveness */
-        @media (max-width: 900px) {
-            .social-hub {
-                grid-template-columns: 1fr;
-            }
+        .age {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 34px; height: 34px;
+            border-radius: 50%;
+            border: 1px solid var(--line);
+            font-size: .72rem;
+            font-weight: 800;
+            color: var(--muted);
+            flex-shrink: 0;
         }
 
-        @media (max-width: 600px) {
-            header { padding-top: 120px; }
-            .stake-logo { left: 50%; transform: translateX(-50%); top: 20px; }
-            .stake-logo:hover { transform: translateX(-50%) scale(1.05); }
-            .promo-box { flex-direction: column; width: 100%; border-radius: 20px; padding: 20px; }
-            .copy-btn { width: 100%; }
-            .cta-button { width: 100%; justify-content: center; }
+        /* ── Reveal on scroll ─────────────────────────────── */
+        .reveal { opacity: 0; transform: translateY(22px); transition: opacity .8s var(--ease), transform .8s var(--ease); }
+        .reveal.in { opacity: 1; transform: none; }
+
+        /* ── Responsive ───────────────────────────────────── */
+        @media (max-width: 940px) {
+            .social-hub { grid-template-columns: 1fr; }
+            .stats { grid-template-columns: 1fr 1fr; }
+            .stat:nth-child(2) { border-right: 0; }
+            .stat:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
+            .nav-links { display: none; }
+        }
+
+        @media (max-width: 620px) {
+            .hero { padding: 130px 0 72px; }
+            .section { padding: 76px 0; }
+            .promo { flex-direction: column; width: 100%; border-radius: var(--r-lg); padding: 18px; gap: 12px; }
+            .promo-label { padding: 0; }
+            .promo-code { width: 100%; text-align: center; }
+            .copy-btn { width: 100%; justify-content: center; }
+            .hero-actions .btn { width: 100%; }
+            .brand-tag { display: none; }
+            .cta-band { padding: 48px 22px; border-radius: 24px; }
+            .foot-inner { justify-content: center; text-align: center; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            *, *::before, *::after { animation-duration: .001ms !important; transition-duration: .001ms !important; }
+            .reveal { opacity: 1; transform: none; }
         }
     </style>
 </head>
 <body>
 
-    <header class="container">
-        <!-- Stake Logo -->
-        <svg class="stake-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500">
-            <g id="Layer_5" data-name="Layer 5">
-                <path fill="currentColor" d="M25.68,56.89c-.1-26.47,16.84-41.15,47.94-41.26C96,15.55,100,30.19,100,35.51c0,10.19-14.42,21-14.42,21s.8,6.35,13.18,6.3,24.44-8.22,24.37-28.67C123.07,10.65,98.46-.09,74.13,0,53.78.07-.19,2.93,0,56.51c.18,47.59,90,51.79,90.07,82.26.12,33.09-37,42-49.56,42S22.84,171.88,22.82,167c-.09-26.8,26.58-34.26,26.58-34.26,0-2-1.56-10.91-11.89-10.87C10.9,121.92.3,144.8.38,167.14c.07,19,13.5,30.86,33.78,30.78,38.78-.14,82.51-19.06,82.35-61.08C116.37,97.54,25.79,87.28,25.68,56.89Z"></path>
-                <path fill="currentColor" d="M395.37,162.18c-.31-.75-1.18-.57-2.33.38-4.4,3.63-14.46,13.91-38,14-42.92.16-50.37-70.58-50.37-70.58s32.71-24.42,37.82-34.27-11.15-12-11.15-12-22.88,27.84-39.1,36C294,83.6,306,56,306.69,40.13s-19.11-12-22.27-10.48c0,6.93-17.49,69.84-23.86,104.42-3.75,6-9.11,12.86-13.91,12.87-2.78,0-3.8-5.15-3.83-12.53,0-10.24,5.64-26.65,5.6-36.62,0-6.9-3.17-7.31-5.9-7.3-.59,0-3.87.09-4.47.09-7,0-4.7-6-11-5.94-19.28.07-43.84,21.12-44.91,52.89-6.51,4.31-15.62,9.74-20.27,9.76-4.88,0-6.09-4.51-6.1-8.41,0-6.85,11.08-47.55,11.08-47.55s14.11-3.62,20.27-4.81c4.66-.91,6-1.25,7.81-3.5s5.35-6.9,8.21-11.08.05-7.41-5.24-7.39c-6.94,0-25.51,4.4-25.51,4.4s8.92-38.46,8.91-39.24-1-1.19-2.51-1.18c-3.38,0-9.41,1.82-13.27,3.2-5.91,2.11-10.72,9.35-11.69,12.72s-7.65,29.76-7.65,29.76-35.77,12.35-40.66,14.2a.74.74,0,0,0-.5.7c0,.32,4.09,16,12.48,15.94,6,0,23.63-7.22,23.63-7.22s-9.06,36-9,48c0,7.7,3.63,16.72,18.67,16.67,14,0,26.25-7.23,33.11-12.26,3.75,9.49,12.61,12.09,18.66,12.07,13.56,0,24-10.82,25.34-12.27,1.76,4.16,5.91,12.15,15.39,12.12,5.36,0,10.91-6,15-11.82a23.38,23.38,0,0,0,.05,3.63c1.64,14.92,23.79,6.15,25,4.07.75-10.79.28-32.85,4.59-46.47,5.72,46.46,27.42,77.71,66.43,77.57,21.81-.08,33-6.35,37.63-11.52A15.9,15.9,0,0,0,395.37,162.18ZM208.2,146.86c-18.73.07,5.73-48.48,21.71-48.54C229.93,104.58,229.58,146.79,208.2,146.86Z"></path>
-                <path fill="currentColor" d="M360.26,161.74c16.91-.06,30-11.19,32.4-14.81,3.1-4.71-3.6-11.82-5.73-11.7-5.34,5.11-10.92,11.29-23.45,11.33-14.75.06-11.41-16.17-11.41-16.17s28.39,3.67,39.8-16.74c3.65-6.53,3.8-15.56,2.33-19.45s-9.73-11.09-22.87-10c-16.14,1.36-36.48,18.19-40.95,38.4C326.79,138.86,333.58,161.84,360.26,161.74Zm18-68.1c2.66-.09,2.42,4.29,1.71,8.87-1,6.21-9.53,22-25.81,21.38C355.29,114.7,367.4,94,378.29,93.64Z"></path>
-            </g>
-        </svg>
+<div class="bg-layer"></div>
+<div class="bg-grid"></div>
 
-        <span class="badge"><i class="fa-solid =>-bolt"></i> Official Stake VIP Partner</span>
-        <h1>Stake Japan <span>Rakeback</span></h1>
-        <p>Activate instant rakeback passive earnings on every single wager you place.</p>
+<!-- ── Nav ─────────────────────────────────────────────── -->
+<nav class="nav" id="nav">
+    <div class="container nav-inner">
+        <a href="#top" class="brand" aria-label="Stake Japan home">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 200" role="img" aria-label="Stake">
+                <g>
+                    <path fill="currentColor" d="M25.68,56.89c-.1-26.47,16.84-41.15,47.94-41.26C96,15.55,100,30.19,100,35.51c0,10.19-14.42,21-14.42,21s.8,6.35,13.18,6.3,24.44-8.22,24.37-28.67C123.07,10.65,98.46-.09,74.13,0,53.78.07-.19,2.93,0,56.51c.18,47.59,90,51.79,90.07,82.26.12,33.09-37,42-49.56,42S22.84,171.88,22.82,167c-.09-26.8,26.58-34.26,26.58-34.26,0-2-1.56-10.91-11.89-10.87C10.9,121.92.3,144.8.38,167.14c.07,19,13.5,30.86,33.78,30.78,38.78-.14,82.51-19.06,82.35-61.08C116.37,97.54,25.79,87.28,25.68,56.89Z"></path>
+                    <path fill="currentColor" d="M395.37,162.18c-.31-.75-1.18-.57-2.33.38-4.4,3.63-14.46,13.91-38,14-42.92.16-50.37-70.58-50.37-70.58s32.71-24.42,37.82-34.27-11.15-12-11.15-12-22.88,27.84-39.1,36C294,83.6,306,56,306.69,40.13s-19.11-12-22.27-10.48c0,6.93-17.49,69.84-23.86,104.42-3.75,6-9.11,12.86-13.91,12.87-2.78,0-3.8-5.15-3.83-12.53,0-10.24,5.64-26.65,5.6-36.62,0-6.9-3.17-7.31-5.9-7.3-.59,0-3.87.09-4.47.09-7,0-4.7-6-11-5.94-19.28.07-43.84,21.12-44.91,52.89-6.51,4.31-15.62,9.74-20.27,9.76-4.88,0-6.09-4.51-6.1-8.41,0-6.85,11.08-47.55,11.08-47.55s14.11-3.62,20.27-4.81c4.66-.91,6-1.25,7.81-3.5s5.35-6.9,8.21-11.08.05-7.41-5.24-7.39c-6.94,0-25.51,4.4-25.51,4.4s8.92-38.46,8.91-39.24-1-1.19-2.51-1.18c-3.38,0-9.41,1.82-13.27,3.2-5.91,2.11-10.72,9.35-11.69,12.72s-7.65,29.76-7.65,29.76-35.77,12.35-40.66,14.2a.74.74,0,0,0-.5.7c0,.32,4.09,16,12.48,15.94,6,0,23.63-7.22,23.63-7.22s-9.06,36-9,48c0,7.7,3.63,16.72,18.67,16.67,14,0,26.25-7.23,33.11-12.26,3.75,9.49,12.61,12.09,18.66,12.07,13.56,0,24-10.82,25.34-12.27,1.76,4.16,5.91,12.15,15.39,12.12,5.36,0,10.91-6,15-11.82a23.38,23.38,0,0,0,.05,3.63c1.64,14.92,23.79,6.15,25,4.07.75-10.79.28-32.85,4.59-46.47,5.72,46.46,27.42,77.71,66.43,77.57,21.81-.08,33-6.35,37.63-11.52A15.9,15.9,0,0,0,395.37,162.18ZM208.2,146.86c-18.73.07,5.73-48.48,21.71-48.54C229.93,104.58,229.58,146.79,208.2,146.86Z"></path>
+                    <path fill="currentColor" d="M360.26,161.74c16.91-.06,30-11.19,32.4-14.81,3.1-4.71-3.6-11.82-5.73-11.7-5.34,5.11-10.92,11.29-23.45,11.33-14.75.06-11.41-16.17-11.41-16.17s28.39,3.67,39.8-16.74c3.65-6.53,3.8-15.56,2.33-19.45s-9.73-11.09-22.87-10c-16.14,1.36-36.48,18.19-40.95,38.4C326.79,138.86,333.58,161.84,360.26,161.74Zm18-68.1c2.66-.09,2.42,4.29,1.71,8.87-1,6.21-9.53,22-25.81,21.38C355.29,114.7,367.4,94,378.29,93.64Z"></path>
+                </g>
+            </svg>
+            <span class="brand-tag">Japan</span>
+        </a>
 
-        <!-- Interactive Promo Box -->
-        <div class="promo-box">
-            <span class="promo-code" id="codeText">ecosama5</span>
-            <button class="copy-btn" onclick="copyCode()"><i class="fa-regular fa-copy"></i> Copy Code</button>
+        <div class="nav-links">
+            <a href="#benefits">Benefits</a>
+            <a href="#how">How it works</a>
+            <a href="#community">Community</a>
+            <a href="#faq">FAQ</a>
         </div>
 
-        <br>
-
-        <a href="https://www.stake.com/?c=ecosama5" target="_blank" class="cta-button">
-            Claim Instant Rakeback <i class="fa-solid fa-arrow-right-long"></i>
+        <a href="https://www.stake.com/?c=ecosama5" target="_blank" rel="noopener" class="btn btn-primary">
+            Claim Rakeback <i class="fa-solid fa-arrow-right-long"></i>
         </a>
-    </header>
+    </div>
+</nav>
 
-    <main class="container">
-        <!-- Features Section -->
-        <section class="section">
-            <h2 class="section-title">Why Activate Code <span style="color:var(--neon-green)">ECOSAMA5</span>?</h2>
-            <p class="section-subtitle">Get the ultimate VIP treatment from day one without grinding thousands in wager volume.</p>
+<!-- ── Hero ────────────────────────────────────────────── -->
+<header class="hero" id="top">
+    <div class="container">
+        <span class="eyebrow"><span class="dot"></span> Official Stake VIP Partner</span>
 
-            <div class="features">
-                <div class="feature glass">
-                    <i class="fa-solid fa-coins feature-icon"></i>
-                    <h3>Instant Rakeback</h3>
-                    <p>Earn a percentage of the house edge back on every single bet, win or lose. No level requirements needed.</p>
-                </div>
-                <div class="feature glass">
-                    <i class="fa-solid fa-bolt feature-icon"></i>
-                    <h3>Zero Waiting Period</h3>
-                    <p>Your rakeback accumulates in real-time. Claim your funds instantly straight to your balance whenever you want.</p>
-                </div>
-                <div class="feature glass">
-                    <i class="fa-solid fa-shield-halved feature-icon"></i>
-                    <h3>Fast Crypto Cashouts</h3>
-                    <p>Enjoy high-tier withdrawal limits and immediate automated crypto payouts on major networks.</p>
+        <h1>Stake Japan<br><span class="grad">Rakeback</span></h1>
+
+        <p class="lead">Activate instant rakeback and earn passively on every single wager you place — win or lose.</p>
+
+        <div class="promo">
+            <span class="promo-label">Bonus code</span>
+            <span class="promo-code" id="codeText">ecosama5</span>
+            <button class="copy-btn" id="copyBtn" type="button" onclick="copyCode()">
+                <i class="fa-regular fa-copy"></i><span>Copy</span>
+            </button>
+        </div>
+
+        <div class="hero-actions">
+            <a href="https://www.stake.com/?c=ecosama5" target="_blank" rel="noopener" class="btn btn-primary btn-lg">
+                Claim Instant Rakeback <i class="fa-solid fa-arrow-right-long"></i>
+            </a>
+            <a href="#how" class="btn btn-ghost btn-lg">
+                <i class="fa-regular fa-circle-play"></i> How it works
+            </a>
+        </div>
+
+        <div class="trust">
+            <span><i class="fa-solid fa-check"></i> No wager requirements</span>
+            <span><i class="fa-solid fa-check"></i> Instant crypto payouts</span>
+            <span><i class="fa-solid fa-check"></i> Works on every bet</span>
+        </div>
+    </div>
+</header>
+
+<main>
+    <!-- ── Stats ───────────────────────────────────────── -->
+    <section class="container reveal" aria-label="Highlights">
+        <div class="stats">
+            <div class="stat"><b>Instant</b><span>Payouts</span></div>
+            <div class="stat"><b>24/7</b><span>Accrual</span></div>
+            <div class="stat"><b>0</b><span>Wager Req.</span></div>
+            <div class="stat"><b>VIP</b><span>From Day 1</span></div>
+        </div>
+    </section>
+
+    <!-- ── Benefits ────────────────────────────────────── -->
+    <section class="section container" id="benefits">
+        <div class="section-head reveal">
+            <span class="eyebrow">Benefits</span>
+            <h2>Why activate code <span class="accent">ECOSAMA5</span>?</h2>
+            <p>Get the full VIP treatment from day one — without grinding thousands in wager volume first.</p>
+        </div>
+
+        <div class="grid-3">
+            <article class="card reveal">
+                <span class="card-icon"><i class="fa-solid fa-coins"></i></span>
+                <h3>Instant Rakeback</h3>
+                <p>Earn a percentage of the house edge back on every single bet, win or lose. No level requirements needed.</p>
+            </article>
+
+            <article class="card reveal">
+                <span class="card-icon"><i class="fa-solid fa-bolt"></i></span>
+                <h3>Zero Waiting Period</h3>
+                <p>Your rakeback accumulates in real time. Claim it straight to your balance whenever you want.</p>
+            </article>
+
+            <article class="card reveal">
+                <span class="card-icon"><i class="fa-solid fa-shield-halved"></i></span>
+                <h3>Fast Crypto Cashouts</h3>
+                <p>High-tier withdrawal limits and immediate automated crypto payouts across all major networks.</p>
+            </article>
+        </div>
+    </section>
+
+    <!-- ── How it works ────────────────────────────────── -->
+    <section class="section container" id="how">
+        <div class="section-head reveal">
+            <span class="eyebrow">Setup</span>
+            <h2>Live in under a minute</h2>
+            <p>Three steps between you and passive rakeback on every wager.</p>
+        </div>
+
+        <div class="steps">
+            <div class="step reveal">
+                <span class="step-num">STEP 01</span>
+                <h3>Copy the code</h3>
+                <p>Tap the copy button above to grab <strong>ECOSAMA5</strong> — it's the only code you need.</p>
+            </div>
+            <div class="step reveal">
+                <span class="step-num">STEP 02</span>
+                <h3>Create your account</h3>
+                <p>Head to Stake and paste the code into the bonus code field during sign-up.</p>
+            </div>
+            <div class="step reveal">
+                <span class="step-num">STEP 03</span>
+                <h3>Start earning</h3>
+                <p>Rakeback begins accruing immediately and can be claimed straight to your balance.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── Community ───────────────────────────────────── -->
+    <section class="section container" id="community">
+        <div class="section-head reveal">
+            <span class="eyebrow">Community</span>
+            <h2>Live updates &amp; drops</h2>
+            <p>Follow along for daily bonus codes, giveaways, and exclusive VIP drops.</p>
+        </div>
+
+        <div class="social-hub">
+            <div class="panel reveal">
+                <img class="avatar" src="https://pbs.twimg.com/profile_images/1892906625398124545/dWDRqmR6_400x400.jpg" alt="stake_eco profile picture" loading="lazy">
+                <h3>X (Twitter) Feed</h3>
+                <span class="handle">@616019 · stake_eco</span>
+                <a href="https://x.com/616019" target="_blank" rel="noopener" class="btn btn-ghost">
+                    <i class="fa-brands fa-x-twitter"></i> Follow on X
+                </a>
+
+                <div class="tweets">
+                    <blockquote class="twitter-tweet" data-theme="dark"><p lang="en" dir="ltr">Stake<br>👇<a href="https://t.co/vGiqFLB0w6">https://t.co/vGiqFLB0w6</a> <a href="https://t.co/b7qGg2kF7a">pic.twitter.com/b7qGg2kF7a</a></p>&mdash; stake_eco (@616019) <a href="https://twitter.com/616019/status/1898124863598215545?ref_src=twsrc%5Etfw">March 7, 2025</a></blockquote>
+                    <blockquote class="twitter-tweet" data-theme="dark"><p lang="en" dir="ltr">STAKE<br>👇<a href="https://t.co/vGiqFLB0w6">https://t.co/vGiqFLB0w6</a> <a href="https://t.co/73Lro8qPe9">pic.twitter.com/73Lro8qPe9</a></p>&mdash; stake_eco (@616019) <a href="https://twitter.com/616019/status/1896909363308310880?ref_src=twsrc%5Etfw">March 4, 2025</a></blockquote>
                 </div>
             </div>
-        </section>
 
-        <!-- Social Media Section -->
-        <section class="section">
-            <h2 class="section-title">Community & Live Updates</h2>
-            <p class="section-subtitle">Follow for daily bonus codes, giveaways, and exclusive VIP drops.</p>
-
-            <div class="social-hub">
-                <!-- Twitter Box -->
-                <div class="social-box glass">
-                    <div class="twitter-profile">
-                        <img src="https://pbs.twimg.com/profile_images/1892906625398124545/dWDRqmR6_400x400.jpg" alt="Profile Pic">
-                    </div>
-                    <h3 style="font-family: 'Rajdhani', sans-serif; font-size:1.5rem">X (Twitter) Feed</h3>
-                    <a href="https://x.com/616019" target="_blank" class="social-btn">
-                        <i class="fa-brands fa-x-twitter"></i> Follow @616019
-                    </a>
-
-                    <div class="tweets-container">
-                        <blockquote class="twitter-tweet" data-theme="dark"><p lang="en" dir="ltr">Stake<br>👇<a href="https://t.co/vGiqFLB0w6">https://t.co/vGiqFLB0w6</a> <a href="https://t.co/b7qGg2kF7a">pic.twitter.com/b7qGg2kF7a</a></p>&mdash; stake_eco (@616019) <a href="https://twitter.com/616019/status/1898124863598215545?ref_src=twsrc%5Etfw">March 7, 2025</a></blockquote>
-                        <blockquote class="twitter-tweet" data-theme="dark"><p lang="en" dir="ltr">STAKE<br>👇<a href="https://t.co/vGiqFLB0w6">https://t.co/vGiqFLB0w6</a> <a href="https://t.co/73Lro8qPe9">pic.twitter.com/73Lro8qPe9</a></p>&mdash; stake_eco (@616019) <a href="https://twitter.com/616019/status/1896909363308310880?ref_src=twsrc%5Etfw">March 4, 2025</a></blockquote>
-                    </div>
-                </div>
-
-                <!-- Instagram Box -->
-                <div class="social-box glass" style="justify-content: center;">
-                    <i class="fa-brands fa-instagram" style="font-size: 4rem; color: var(--neon-green); margin-bottom:20px; filter: drop-shadow(0 0 15px var(--neon-glow));"></i>
-                    <h3 style="font-family: 'Rajdhani', sans-serif; font-size:1.8rem; margin-bottom: 10px;">Instagram Drops</h3>
-                    <p style="color: #94a3b8; margin-bottom: 25px;">Check out clips, big wins, and exclusive monthly code drops on Instagram.</p>
-                    <a href="https://www.instagram.com/stake_eco?igsh=YWF0MTd6NDd4cnps&utm_source=qr" target="_blank" class="social-btn">
-                        <i class="fa-brands fa-instagram"></i> Follow on Instagram
-                    </a>
-                </div>
+            <div class="panel reveal" style="justify-content:center; min-height:320px;">
+                <span class="big-icon"><i class="fa-brands fa-instagram"></i></span>
+                <h3>Instagram Drops</h3>
+                <span class="handle">@stake_eco</span>
+                <p>Clips, big wins, and exclusive monthly code drops — posted first on Instagram.</p>
+                <a href="https://www.instagram.com/stake_eco?igsh=YWF0MTd6NDd4cnps&utm_source=qr" target="_blank" rel="noopener" class="btn btn-ghost">
+                    <i class="fa-brands fa-instagram"></i> Follow on Instagram
+                </a>
             </div>
-        </section>
-    </main>
+        </div>
+    </section>
 
-    <footer>
-        <p>&copy; 2026 Stake Japan Partner | <a href="https://www.stake.com/?c=ecosama5" target="_blank">Sign Up with Code ECOSAMA5</a></p>
-    </footer>
+    <!-- ── FAQ ─────────────────────────────────────────── -->
+    <section class="section container" id="faq">
+        <div class="section-head reveal">
+            <span class="eyebrow">FAQ</span>
+            <h2>Common questions</h2>
+        </div>
 
-    <!-- Twitter Widgets JS -->
-    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+        <div class="faq reveal">
+            <details open>
+                <summary>What is rakeback? <i class="fa-solid fa-plus"></i></summary>
+                <div class="answer">Rakeback returns a share of the house edge from your bets back to your balance. It accrues on every wager you place, whether that bet wins or loses.</div>
+            </details>
+            <details>
+                <summary>Where do I enter code ECOSAMA5? <i class="fa-solid fa-plus"></i></summary>
+                <div class="answer">Paste it into the bonus code field when creating your Stake account. Using the link on this page applies the code automatically.</div>
+            </details>
+            <details>
+                <summary>Are there wagering requirements? <i class="fa-solid fa-plus"></i></summary>
+                <div class="answer">No. Rakeback accumulates in real time and can be claimed to your balance whenever you like — no minimum level or volume gate.</div>
+            </details>
+            <details>
+                <summary>How fast are withdrawals? <i class="fa-solid fa-plus"></i></summary>
+                <div class="answer">Crypto cashouts are automated and typically process immediately across all major supported networks.</div>
+            </details>
+        </div>
+    </section>
 
-    <!-- Copy to Clipboard JS Script -->
-    <script>
-        function copyCode() {
-            const code = document.getElementById('codeText').innerText;
-            navigator.clipboard.writeText(code).then(() => {
-                const btn = document.querySelector('.copy-btn');
-                btn.innerHTML = '<i class="fa-solid fa-check"></i> Copied!';
-                btn.style.background = '#ffffff';
-                setTimeout(() => {
-                    btn.innerHTML = '<i class="fa-regular fa-copy"></i> Copy Code';
-                    btn.style.background = 'var(--neon-green)';
-                }, 2000);
-            });
+    <!-- ── Final CTA ───────────────────────────────────── -->
+    <section class="container reveal">
+        <div class="cta-band">
+            <span class="eyebrow"><span class="dot"></span> Code active</span>
+            <h2 style="margin-top:22px;">Start earning on every wager</h2>
+            <p>Sign up with <strong class="accent">ECOSAMA5</strong> and your rakeback starts accruing from your very first bet.</p>
+            <a href="https://www.stake.com/?c=ecosama5" target="_blank" rel="noopener" class="btn btn-primary btn-lg">
+                Claim Instant Rakeback <i class="fa-solid fa-arrow-right-long"></i>
+            </a>
+        </div>
+    </section>
+</main>
+
+<!-- ── Footer ──────────────────────────────────────────── -->
+<footer>
+    <div class="container">
+        <div class="foot-inner">
+            <p style="font-size:.88rem; color:var(--muted);">&copy; 2026 Stake Japan Partner</p>
+            <div class="foot-links">
+                <a href="#benefits">Benefits</a>
+                <a href="#how">How it works</a>
+                <a href="#community">Community</a>
+                <a href="#faq">FAQ</a>
+                <a href="https://www.stake.com/?c=ecosama5" target="_blank" rel="noopener">Sign up with ECOSAMA5</a>
+            </div>
+        </div>
+        <div class="foot-note">
+            <span class="age">18+</span>
+            <span>Gambling involves risk — please play responsibly and only wager what you can afford to lose. Availability and terms depend on your jurisdiction.</span>
+        </div>
+    </div>
+</footer>
+
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<script>
+    // Copy bonus code
+    function copyCode() {
+        const code = document.getElementById('codeText').innerText.trim();
+        const btn = document.getElementById('copyBtn');
+
+        const done = () => {
+            btn.classList.add('done');
+            btn.innerHTML = '<i class="fa-solid fa-check"></i><span>Copied</span>';
+            setTimeout(() => {
+                btn.classList.remove('done');
+                btn.innerHTML = '<i class="fa-regular fa-copy"></i><span>Copy</span>';
+            }, 2000);
+        };
+
+        if (navigator.clipboard && window.isSecureContext) {
+            navigator.clipboard.writeText(code).then(done).catch(fallback);
+        } else {
+            fallback();
         }
-    </script>
+
+        function fallback() {
+            const ta = document.createElement('textarea');
+            ta.value = code;
+            ta.style.position = 'fixed';
+            ta.style.opacity = '0';
+            document.body.appendChild(ta);
+            ta.select();
+            try { document.execCommand('copy'); done(); } catch (e) { /* no-op */ }
+            document.body.removeChild(ta);
+        }
+    }
+
+    // Nav background on scroll
+    const nav = document.getElementById('nav');
+    const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 12);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+
+    // Reveal on scroll
+    const items = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+        const io = new IntersectionObserver((entries) => {
+            entries.forEach((entry, i) => {
+                if (entry.isIntersecting) {
+                    entry.target.style.transitionDelay = (i * 70) + 'ms';
+                    entry.target.classList.add('in');
+                    io.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.12, rootMargin: '0px 0px -60px' });
+        items.forEach(el => io.observe(el));
+    } else {
+        items.forEach(el => el.classList.add('in'));
+    }
+</script>
 </body>
 </html>
