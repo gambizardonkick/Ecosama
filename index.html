@@ -430,6 +430,130 @@
         .card h3 { font-size: 1.28rem; margin-bottom: 10px; }
         .card p { color: var(--muted); font-size: .95rem; }
 
+        /* ── Lossback tiers ───────────────────────────────── */
+        .tiers {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(272px, 1fr));
+            gap: 20px;
+            align-items: stretch;
+        }
+
+        .tier {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            padding: 32px 28px 30px;
+            border-radius: var(--r-lg);
+            border: 1px solid var(--line);
+            background: linear-gradient(180deg, rgba(255, 255, 255, .05), rgba(255, 255, 255, .015));
+            backdrop-filter: blur(14px);
+            transition: transform .45s var(--ease), border-color .45s var(--ease), box-shadow .45s var(--ease);
+        }
+
+        .tier:hover { transform: translateY(-6px); border-color: var(--line-strong); }
+
+        .tier.featured {
+            border-color: var(--line-strong);
+            background:
+                radial-gradient(420px 220px at 50% 0%, rgba(62, 232, 127, .13), transparent 70%),
+                linear-gradient(180deg, rgba(255, 255, 255, .06), rgba(255, 255, 255, .02));
+            box-shadow: 0 30px 70px -30px rgba(62, 232, 127, .45);
+        }
+
+        .tier-flag {
+            position: absolute;
+            top: -11px; left: 50%;
+            transform: translateX(-50%);
+            font-size: .66rem;
+            font-weight: 800;
+            letter-spacing: .14em;
+            text-transform: uppercase;
+            color: #041308;
+            background: linear-gradient(180deg, #56f394, var(--green-deep));
+            padding: 5px 14px;
+            border-radius: 999px;
+            white-space: nowrap;
+        }
+
+        .tier-name {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.02rem;
+            font-weight: 700;
+            letter-spacing: .04em;
+            text-transform: uppercase;
+            color: var(--text);
+        }
+
+        .tier-req {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: .78rem;
+            font-weight: 700;
+            color: var(--muted-dim);
+            margin-top: 6px;
+        }
+
+        .tier-pct {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(2.4rem, 6vw, 3.1rem);
+            font-weight: 700;
+            letter-spacing: -0.04em;
+            line-height: 1;
+            margin: 22px 0 4px;
+            background: linear-gradient(160deg, #ffffff 10%, var(--green) 92%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .tier-pct-label {
+            font-size: .76rem;
+            font-weight: 600;
+            letter-spacing: .13em;
+            text-transform: uppercase;
+            color: var(--muted-dim);
+        }
+
+        .tier-list {
+            list-style: none;
+            margin: 26px 0 0;
+            padding-top: 22px;
+            border-top: 1px solid var(--line);
+            display: grid;
+            gap: 12px;
+        }
+
+        .tier-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 11px;
+            font-size: .92rem;
+            color: var(--muted);
+            line-height: 1.5;
+        }
+
+        .tier-list i {
+            color: var(--green);
+            font-size: .72rem;
+            margin-top: .42em;
+            flex-shrink: 0;
+        }
+
+        .tier-note {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            margin-top: 24px;
+            padding: 22px 26px;
+            border-radius: var(--r-md);
+            border: 1px solid var(--line);
+            background: rgba(255, 255, 255, .022);
+            text-align: left;
+        }
+
+        .tier-note i { color: var(--green); font-size: 1rem; margin-top: .25em; flex-shrink: 0; }
+        .tier-note p { color: var(--muted); font-size: .92rem; }
+        .tier-note strong { color: var(--text); font-weight: 600; }
+
         /* ── Steps ────────────────────────────────────────── */
         .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
 
@@ -498,22 +622,35 @@
             border: 1px solid rgba(62, 232, 127, .2);
         }
 
-        .tweets {
+        /* Live X timeline embed */
+        .x-timeline {
+            position: relative;
             width: 100%;
-            max-height: 440px;
-            overflow-y: auto;
+            min-height: 240px;
             margin-top: 26px;
-            padding-right: 6px;
+            padding-top: 24px;
+            border-top: 1px solid var(--line);
             text-align: left;
-            scrollbar-width: thin;
-            scrollbar-color: rgba(62, 232, 127, .35) transparent;
-            mask-image: linear-gradient(180deg, #000 88%, transparent);
-            -webkit-mask-image: linear-gradient(180deg, #000 88%, transparent);
         }
 
-        .tweets::-webkit-scrollbar { width: 5px; }
-        .tweets::-webkit-scrollbar-thumb { background: rgba(62, 232, 127, .3); border-radius: 10px; }
-        .tweets::-webkit-scrollbar-track { background: transparent; }
+        .x-timeline .twitter-timeline-rendered { width: 100% !important; }
+
+        /* Placeholder shown until widgets.js swaps in the real timeline */
+        .x-fallback {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            padding: 42px 20px;
+            text-align: center;
+            color: var(--muted-dim);
+            font-size: .9rem;
+        }
+
+        .x-fallback i { font-size: 1.4rem; color: var(--green); opacity: .7; }
+        .x-fallback a { color: var(--green); text-decoration: none; font-weight: 600; }
+        .x-fallback a:hover { text-decoration: underline; }
+        .x-timeline.loaded .x-fallback { display: none; }
 
         /* ── FAQ ──────────────────────────────────────────── */
         .faq { max-width: 760px; margin: 0 auto; display: grid; gap: 12px; }
@@ -672,6 +809,7 @@
 
         <div class="nav-links">
             <a href="#benefits">Benefits</a>
+            <a href="#lossback">Lossback</a>
             <a href="#how">How it works</a>
             <a href="#community">Community</a>
             <a href="#faq">FAQ</a>
@@ -757,6 +895,67 @@
         </div>
     </section>
 
+    <!-- ── Lossback (high rollers) ─────────────────────── -->
+    <!--
+      EDIT THESE BEFORE GOING PUBLIC:
+      The thresholds and percentages below are PLACEHOLDERS. Replace them with
+      the actual terms you can honour, or the page is advertising rates you
+      haven't agreed to.
+    -->
+    <section class="section container" id="lossback">
+        <div class="section-head reveal">
+            <span class="eyebrow">High Rollers</span>
+            <h2>Lossback on <span class="accent">big volume</span></h2>
+            <p>Rakeback pays out on every wager. Lossback goes further — it returns a share of your net losses over the period, so a red month comes partly back to you.</p>
+        </div>
+
+        <div class="tiers">
+            <article class="tier reveal">
+                <span class="tier-name">High Roller</span>
+                <span class="tier-req">$100K+ / month wagered</span>
+                <span class="tier-pct">5%</span>
+                <span class="tier-pct-label">Weekly lossback</span>
+                <ul class="tier-list">
+                    <li><i class="fa-solid fa-check"></i> Paid out weekly, straight to balance</li>
+                    <li><i class="fa-solid fa-check"></i> Stacks on top of instant rakeback</li>
+                    <li><i class="fa-solid fa-check"></i> Priority support queue</li>
+                </ul>
+            </article>
+
+            <article class="tier featured reveal">
+                <span class="tier-flag">Most common</span>
+                <span class="tier-name">Elite</span>
+                <span class="tier-req">$500K+ / month wagered</span>
+                <span class="tier-pct">8%</span>
+                <span class="tier-pct-label">Weekly lossback</span>
+                <ul class="tier-list">
+                    <li><i class="fa-solid fa-check"></i> Everything in High Roller</li>
+                    <li><i class="fa-solid fa-check"></i> Boosted weekly &amp; monthly bonuses</li>
+                    <li><i class="fa-solid fa-check"></i> Dedicated VIP host</li>
+                    <li><i class="fa-solid fa-check"></i> Raised withdrawal limits</li>
+                </ul>
+            </article>
+
+            <article class="tier reveal">
+                <span class="tier-name">Whale</span>
+                <span class="tier-req">$2M+ / month wagered</span>
+                <span class="tier-pct">Custom</span>
+                <span class="tier-pct-label">Negotiated directly</span>
+                <ul class="tier-list">
+                    <li><i class="fa-solid fa-check"></i> Everything in Elite</li>
+                    <li><i class="fa-solid fa-check"></i> Individually negotiated rate</li>
+                    <li><i class="fa-solid fa-check"></i> Direct line to your host</li>
+                    <li><i class="fa-solid fa-check"></i> Bespoke limits and reloads</li>
+                </ul>
+            </article>
+        </div>
+
+        <div class="tier-note reveal">
+            <i class="fa-solid fa-circle-info"></i>
+            <p><strong>Rates are indicative.</strong> Final lossback depends on your game mix, monthly volume, and current VIP level — and is confirmed with your host before it applies. Wagering at this level? <a href="https://x.com/616019" target="_blank" rel="noopener" class="accent" style="text-decoration:none; font-weight:600;">Message me on X</a> for a quote before your first deposit.</p>
+        </div>
+    </section>
+
     <!-- ── How it works ────────────────────────────────── -->
     <section class="section container" id="how">
         <div class="section-head reveal">
@@ -801,9 +1000,20 @@
                     <i class="fa-brands fa-x-twitter"></i> Follow on X
                 </a>
 
-                <div class="tweets">
-                    <blockquote class="twitter-tweet" data-theme="dark"><p lang="en" dir="ltr">Stake<br>👇<a href="https://t.co/vGiqFLB0w6">https://t.co/vGiqFLB0w6</a> <a href="https://t.co/b7qGg2kF7a">pic.twitter.com/b7qGg2kF7a</a></p>&mdash; stake_eco (@616019) <a href="https://twitter.com/616019/status/1898124863598215545?ref_src=twsrc%5Etfw">March 7, 2025</a></blockquote>
-                    <blockquote class="twitter-tweet" data-theme="dark"><p lang="en" dir="ltr">STAKE<br>👇<a href="https://t.co/vGiqFLB0w6">https://t.co/vGiqFLB0w6</a> <a href="https://t.co/73Lro8qPe9">pic.twitter.com/73Lro8qPe9</a></p>&mdash; stake_eco (@616019) <a href="https://twitter.com/616019/status/1896909363308310880?ref_src=twsrc%5Etfw">March 4, 2025</a></blockquote>
+                <!-- Live feed: pulls the latest posts from @616019 automatically -->
+                <div class="x-timeline" id="xTimeline">
+                    <a class="twitter-timeline"
+                       data-theme="dark"
+                       data-height="520"
+                       data-chrome="noheader nofooter transparent"
+                       data-dnt="true"
+                       href="https://twitter.com/616019?ref_src=twsrc%5Etfw">Posts from @616019</a>
+
+                    <div class="x-fallback">
+                        <i class="fa-brands fa-x-twitter"></i>
+                        <span>Loading the latest posts…</span>
+                        <a href="https://x.com/616019" target="_blank" rel="noopener">View the feed on X →</a>
+                    </div>
                 </div>
             </div>
 
@@ -836,6 +1046,10 @@
                 <div class="answer">Paste it into the bonus code field when creating your Stake account. Using the link on this page applies the code automatically.</div>
             </details>
             <details>
+                <summary>What's the difference between rakeback and lossback? <i class="fa-solid fa-plus"></i></summary>
+                <div class="answer">Rakeback returns a slice of the house edge on <em>every</em> bet you place, win or lose. Lossback is a high-roller add-on that returns a percentage of your <em>net losses</em> over a period. They stack — see the <a href="#lossback" class="accent" style="text-decoration:none;">lossback tiers</a> for volume thresholds.</div>
+            </details>
+            <details>
                 <summary>Are there wagering requirements? <i class="fa-solid fa-plus"></i></summary>
                 <div class="answer">No. Rakeback accumulates in real time and can be claimed to your balance whenever you like — no minimum level or volume gate.</div>
             </details>
@@ -866,6 +1080,7 @@
             <p style="font-size:.88rem; color:var(--muted);">&copy; 2026 Stake Japan Partner</p>
             <div class="foot-links">
                 <a href="#benefits">Benefits</a>
+                <a href="#lossback">Lossback</a>
                 <a href="#how">How it works</a>
                 <a href="#community">Community</a>
                 <a href="#faq">FAQ</a>
@@ -919,6 +1134,30 @@
     const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 12);
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
+
+    // Swap the X feed placeholder out once widgets.js renders the live timeline
+    (function () {
+        const wrap = document.getElementById('xTimeline');
+        if (!wrap) return;
+
+        const check = () => {
+            if (!wrap.querySelector('iframe')) return false;
+            wrap.classList.add('loaded');
+            return true;
+        };
+
+        if (check()) return;
+
+        const mo = new MutationObserver(() => { if (check()) mo.disconnect(); });
+        mo.observe(wrap, { childList: true, subtree: true });
+
+        setTimeout(() => {
+            if (wrap.classList.contains('loaded')) return;
+            mo.disconnect();
+            const msg = wrap.querySelector('.x-fallback span');
+            if (msg) msg.textContent = "The feed couldn't load — it may be blocked by your browser or an extension.";
+        }, 8000);
+    })();
 
     // Reveal on scroll
     const items = document.querySelectorAll('.reveal');
