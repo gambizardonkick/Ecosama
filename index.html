@@ -560,35 +560,133 @@
             border: 1px solid rgba(62, 232, 127, .2);
         }
 
-        /* Live X timeline embed */
-        .x-timeline {
-            position: relative;
+        /* Live X feed (rendered from /api/x-feed) */
+        .x-feed {
             width: 100%;
-            min-height: 240px;
             margin-top: 26px;
             padding-top: 24px;
             border-top: 1px solid var(--line);
             text-align: left;
+            display: grid;
+            gap: 14px;
         }
 
-        .x-timeline .twitter-timeline-rendered { width: 100% !important; }
+        .xp {
+            display: block;
+            padding: 18px 20px;
+            border-radius: var(--r-md);
+            border: 1px solid var(--line);
+            background: rgba(255, 255, 255, .028);
+            text-decoration: none;
+            color: inherit;
+            transition: border-color .3s var(--ease), background .3s var(--ease), transform .3s var(--ease);
+        }
 
-        /* Placeholder shown until widgets.js swaps in the real timeline */
-        .x-fallback {
+        .xp:hover {
+            border-color: var(--line-strong);
+            background: rgba(62, 232, 127, .04);
+            transform: translateY(-2px);
+        }
+
+        .xp-head { display: flex; align-items: center; gap: 10px; }
+
+        .xp-head img {
+            width: 38px; height: 38px;
+            border-radius: 50%;
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+
+        .xp-id { display: flex; flex-direction: column; line-height: 1.25; min-width: 0; }
+        .xp-name { font-weight: 700; font-size: .92rem; color: var(--text); }
+        .xp-handle { font-size: .82rem; color: var(--muted-dim); }
+        .xp-head .fa-x-twitter { margin-left: auto; color: var(--muted-dim); font-size: .95rem; }
+
+        .xp-text {
+            margin-top: 12px;
+            font-size: .95rem;
+            color: var(--text);
+            white-space: pre-wrap;
+            overflow-wrap: anywhere;
+        }
+
+        .xp-text a { color: var(--green); text-decoration: none; }
+        .xp-text a:hover { text-decoration: underline; }
+
+        .xp-media {
+            position: relative;
+            margin-top: 13px;
+            border-radius: 14px;
+            overflow: hidden;
+            border: 1px solid var(--line);
+            line-height: 0;
+        }
+
+        .xp-media img { width: 100%; height: auto; display: block; }
+
+        .xp-play {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, .3);
+        }
+
+        .xp-play span {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 54px; height: 54px;
+            border-radius: 50%;
+            background: rgba(7, 10, 12, .8);
+            border: 1px solid rgba(255, 255, 255, .25);
+            color: #fff;
+            font-size: 1.05rem;
+            backdrop-filter: blur(4px);
+        }
+
+        .xp-foot {
+            display: flex;
+            gap: 20px;
+            margin-top: 14px;
+            padding-top: 12px;
+            border-top: 1px solid var(--line);
+            font-size: .8rem;
+            color: var(--muted-dim);
+        }
+
+        .xp-foot span { display: inline-flex; align-items: center; gap: 6px; }
+        .xp-foot .xp-date { margin-left: auto; }
+
+        /* Loading / error state */
+        .x-state {
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 10px;
-            padding: 42px 20px;
+            padding: 36px 20px;
             text-align: center;
             color: var(--muted-dim);
             font-size: .9rem;
         }
 
-        .x-fallback i { font-size: 1.4rem; color: var(--green); opacity: .7; }
-        .x-fallback a { color: var(--green); text-decoration: none; font-weight: 600; }
-        .x-fallback a:hover { text-decoration: underline; }
-        .x-timeline.loaded .x-fallback { display: none; }
+        .x-state i { font-size: 1.4rem; color: var(--green); opacity: .7; }
+        .x-state a { color: var(--green); text-decoration: none; font-weight: 600; }
+        .x-state a:hover { text-decoration: underline; }
+
+        .x-skeleton { display: grid; gap: 14px; width: 100%; }
+
+        .x-skeleton div {
+            height: 92px;
+            border-radius: var(--r-md);
+            border: 1px solid var(--line);
+            background: linear-gradient(100deg, rgba(255,255,255,.03) 30%, rgba(255,255,255,.07) 50%, rgba(255,255,255,.03) 70%);
+            background-size: 220% 100%;
+            animation: shimmer 1.5s infinite linear;
+        }
+
+        @keyframes shimmer { to { background-position: -220% 0; } }
 
         /* ── FAQ ──────────────────────────────────────────── */
         .faq { max-width: 760px; margin: 0 auto; display: grid; gap: 12px; }
@@ -909,27 +1007,16 @@
 
         <div class="social-hub">
             <div class="panel reveal">
-                <img class="avatar" src="https://pbs.twimg.com/profile_images/1892906625398124545/dWDRqmR6_400x400.jpg" alt="stake_eco profile picture" loading="lazy">
+                <img class="avatar" id="xAvatar" src="https://pbs.twimg.com/profile_images/1948758698303913984/0q_vr8wp_400x400.jpg" alt="stake_eco profile picture" loading="lazy">
                 <h3>X (Twitter) Feed</h3>
                 <span class="handle">@616019 · stake_eco</span>
                 <a href="https://x.com/616019" target="_blank" rel="noopener" class="btn btn-ghost">
                     <i class="fa-brands fa-x-twitter"></i> Follow on X
                 </a>
 
-                <!-- Live feed: pulls the latest posts from @616019 automatically -->
-                <div class="x-timeline" id="xTimeline">
-                    <a class="twitter-timeline"
-                       data-theme="dark"
-                       data-height="520"
-                       data-chrome="noheader nofooter transparent"
-                       data-dnt="true"
-                       href="https://twitter.com/616019?ref_src=twsrc%5Etfw">Posts from @616019</a>
-
-                    <div class="x-fallback">
-                        <i class="fa-brands fa-x-twitter"></i>
-                        <span>Loading the latest posts…</span>
-                        <a href="https://x.com/616019" target="_blank" rel="noopener">View the feed on X →</a>
-                    </div>
+                <!-- Live feed, rendered client-side from /api/x-feed -->
+                <div class="x-feed" id="xFeed">
+                    <div class="x-skeleton"><div></div><div></div></div>
                 </div>
             </div>
 
@@ -1010,7 +1097,8 @@
     </div>
 </footer>
 
-<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<!-- No platform.twitter.com/widgets.js: X's public profile-timeline widget no longer
+     renders. The feed below is fetched server-side by /api/x-feed instead. -->
 
 <script>
     // Copy bonus code
@@ -1051,28 +1139,94 @@
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
 
-    // Swap the X feed placeholder out once widgets.js renders the live timeline
+    // Live X feed — rendered from our own /api/x-feed endpoint
     (function () {
-        const wrap = document.getElementById('xTimeline');
-        if (!wrap) return;
+        const feed = document.getElementById('xFeed');
+        if (!feed) return;
 
-        const check = () => {
-            if (!wrap.querySelector('iframe')) return false;
-            wrap.classList.add('loaded');
-            return true;
+        const esc = (s) => String(s).replace(/[&<>"']/g, (c) => (
+            { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]
+        ));
+
+        const ago = (iso) => {
+            const then = Date.parse(iso);
+            if (isNaN(then)) return '';
+            const mins = Math.floor((Date.now() - then) / 60000);
+            if (mins < 1) return 'now';
+            if (mins < 60) return mins + 'm';
+            if (mins < 1440) return Math.floor(mins / 60) + 'h';
+            if (mins < 43200) return Math.floor(mins / 1440) + 'd';
+            return new Date(then).toLocaleDateString(undefined, { month: 'short', year: 'numeric' });
         };
 
-        if (check()) return;
+        const num = (n) => (n >= 1000 ? (n / 1000).toFixed(n >= 10000 ? 0 : 1).replace('.0', '') + 'K' : n);
 
-        const mo = new MutationObserver(() => { if (check()) mo.disconnect(); });
-        mo.observe(wrap, { childList: true, subtree: true });
+        const linkify = (text, links) => {
+            let out = esc(text);
+            (links || []).forEach((l) => {
+                if (!l.display) return;
+                out = out.split(esc(l.display)).join(
+                    '<a href="' + esc(l.href || '#') + '" target="_blank" rel="noopener">' + esc(l.display) + '</a>'
+                );
+            });
+            return out;
+        };
 
-        setTimeout(() => {
-            if (wrap.classList.contains('loaded')) return;
-            mo.disconnect();
-            const msg = wrap.querySelector('.x-fallback span');
-            if (msg) msg.textContent = "The feed couldn't load — it may be blocked by your browser or an extension.";
-        }, 8000);
+        const state = (icon, msg) => {
+            feed.innerHTML =
+                '<div class="x-state"><i class="fa-brands ' + icon + '"></i><span>' + esc(msg) + '</span>' +
+                '<a href="https://x.com/616019" target="_blank" rel="noopener">View the feed on X →</a></div>';
+        };
+
+        const render = (data) => {
+            if (data.user && data.user.avatar) {
+                const av = document.getElementById('xAvatar');
+                if (av) av.src = data.user.avatar;
+            }
+
+            if (!data.posts || !data.posts.length) {
+                state('fa-x-twitter', "Couldn't load the latest posts right now.");
+                return;
+            }
+
+            const name = (data.user && data.user.name) || 'stake_eco';
+            const handle = '@' + ((data.user && data.user.screen_name) || '616019');
+            const avatar = (data.user && data.user.avatar) || '';
+
+            feed.innerHTML = data.posts.map((p) => {
+                const media = p.media && p.media[0]
+                    ? '<div class="xp-media"><img src="' + esc(p.media[0].thumb) + '" alt="" loading="lazy">' +
+                      (p.media[0].type !== 'photo'
+                          ? '<span class="xp-play"><span><i class="fa-solid fa-play"></i></span></span>'
+                          : '') +
+                      '</div>'
+                    : '';
+
+                const body = p.text ? '<div class="xp-text">' + linkify(p.text, p.links) + '</div>' : '';
+
+                return '<a class="xp" href="' + esc(p.url) + '" target="_blank" rel="noopener">' +
+                    '<div class="xp-head">' +
+                        (avatar ? '<img src="' + esc(avatar) + '" alt="" loading="lazy">' : '') +
+                        '<span class="xp-id"><span class="xp-name">' + esc(name) + '</span>' +
+                        '<span class="xp-handle">' + esc(handle) + '</span></span>' +
+                        '<i class="fa-brands fa-x-twitter"></i>' +
+                    '</div>' + body + media +
+                    '<div class="xp-foot">' +
+                        '<span><i class="fa-regular fa-heart"></i> ' + num(p.likes) + '</span>' +
+                        '<span><i class="fa-solid fa-retweet"></i> ' + num(p.reposts) + '</span>' +
+                        '<span><i class="fa-regular fa-comment"></i> ' + num(p.replies) + '</span>' +
+                        '<span class="xp-date">' + esc(ago(p.created_at)) + '</span>' +
+                    '</div></a>';
+            }).join('');
+        };
+
+        fetch('/api/x-feed', { headers: { Accept: 'application/json' } })
+            .then((r) => (r.ok ? r.json() : Promise.reject(new Error('HTTP ' + r.status))))
+            .then((data) => {
+                if (data.ok === false) throw new Error(data.error || 'feed unavailable');
+                render(data);
+            })
+            .catch(() => state('fa-x-twitter', 'Live posts are unavailable right now.'));
     })();
 
     // Reveal on scroll
