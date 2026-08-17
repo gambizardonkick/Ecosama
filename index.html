@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stake Japan - ECOSAMA Code for Free Rakeback</title>
+    <!-- Google Fonts & Font Awesome for icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Rajdhani:wght@600;700&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --neon-green: #00ff66;
+            --neon-glow: rgba(0, 255, 102, 0.4);
+            --dark-bg: #07090e;
+            --card-bg: rgba(18, 24, 38, 0.65);
+            --card-border: rgba(0, 255, 102, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--dark-bg);
+            color: #fff;
+            overflow-x: hidden;
+            line-height: 1.6;
+            background-image: 
+                radial-gradient(circle at 50% 0%, rgba(0, 255, 102, 0.12), transparent 40%),
+                radial-gradient(circle at 100% 50%, rgba(0, 150, 255, 0.08), transparent 30%);
+            background-attachment: fixed;
+        }
+
+        /* Glassmorphism utility */
+        .glass {
+            background: var(--card-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        /* Header Styling */
+        header {
+            text-align: center;
+            padding: 100px 20px 80px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .stake-logo {
+            position: absolute;
+            top: 25px;
+            left: 25px;
+            width: 110px;
+            height: auto;
+            color: var(--neon-green);
+            filter: drop-shadow(0 0 10px var(--neon-glow));
+            transition: transform 0.3s ease;
+        }
+
+        .stake-logo:hover {
+            transform: scale(1.05);
+        }
+
+        .badge {
+            display: inline-block;
+            background: rgba(0, 255, 102, 0.1);
+            color: var(--neon-green);
+            padding: 8px 18px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            border: 1px solid rgba(0, 255, 102, 0.3);
+            margin-bottom: 20px;
+            box-shadow: 0 0 15px rgba(0, 255, 102, 0.2);
+        }
+
+        header h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            font-weight: 900;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #fff;
+            text-shadow: 0 0 30px rgba(0, 255, 102, 0.3);
+            margin-bottom: 15px;
+        }
+
+        header h1 span {
+            color: var(--neon-green);
+            background: linear-gradient(180deg, #fff 0%, var(--neon-green) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            margin-bottom: 35px;
+            color: #a0aec0;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Code Promo Box */
+        .promo-box {
+            display: inline-flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(0, 0, 0, 0.6);
+            border: 2px dashed var(--neon-green);
+            padding: 10px 10px 10px 25px;
+            border-radius: 50px;
+            margin-bottom: 30px;
+            gap: 20px;
+            box-shadow: 0 0 25px rgba(0, 255, 102, 0.15);
+        }
+
+        .promo-code {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--neon-green);
+            letter-spacing: 3px;
+        }
+
+        .copy-btn {
+            background: var(--neon-green);
+            color: #000;
+            border: none;
+            padding: 10px 22px;
+            border-radius: 50px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .copy-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px var(--neon-green);
+        }
+
+        /* Hero Button */
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: linear-gradient(135deg, #00ff66 0%, #00b347 100%);
+            color: #000;
+            padding: 18px 42px;
+            text-decoration: none;
+            font-weight: 900;
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.4rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 50px;
+            box-shadow: 0 0 35px var(--neon-glow);
+            transition: all 0.3s ease;
+            border: none;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 0 50px rgba(0, 255, 102, 0.7);
+        }
+
+        /* Section Layouts */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section {
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.2rem;
+            font-weight: 900;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .section-subtitle {
+            color: #a0aec0;
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto 40px;
+        }
+
+        /* Features Cards Grid */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .feature {
+            padding: 40px 30px;
+            text-align: left;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .feature::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--neon-green), transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .feature:hover {
+            transform: translateY(-8px);
+            border-color: rgba(0, 255, 102, 0.4);
+            box-shadow: 0 12px 40px rgba(0, 255, 102, 0.15);
+        }
+
+        .feature:hover::before {
+            opacity: 1;
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--neon-green);
+            margin-bottom: 20px;
+            display: inline-block;
+            filter: drop-shadow(0 0 10px var(--neon-glow));
+        }
+
+        .feature h3 {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+
+        .feature p {
+            color: #94a3b8;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* Social Hub Grid */
+        .social-hub {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        .social-box {
+            padding: 40px 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .twitter-profile img {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            border: 3px solid var(--neon-green);
+            box-shadow: 0 0 20px var(--neon-glow);
+            margin-bottom: 20px;
+        }
+
+        .tweets-container {
+            width: 100%;
+            max-height: 500px;
+            overflow-y: auto;
+            margin-top: 20px;
+            padding-right: 5px;
+        }
+
+        /* Custom Scrollbar */
+        .tweets-container::-webkit-scrollbar {
+            width: 6px;
+        }
+        .tweets-container::-webkit-scrollbar-thumb {
+            background: rgba(0, 255, 102, 0.3);
+            border-radius: 10px;
+        }
+
+        .social-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: #fff;
+            text-decoration: none;
+            font-weight: 700;
+            border: 2px solid var(--neon-green);
+            padding: 12px 30px;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            font-family: 'Rajdhani', sans-serif;
+            letter-spacing: 1px;
+            margin-top: 15px;
+        }
+
+        .social-btn:hover {
+            background: var(--neon-green);
+            color: #000;
+            box-shadow: 0 0 25px var(--neon-green);
+            transform: scale(1.05);
+        }
+
+        footer {
+            background: #040508;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            color: #64748b;
+            text-align: center;
+            padding: 40px 20px;
+            font-size: 0.9rem;
+            margin-top: 60px;
+        }
+
+        footer a {
+            color: var(--neon-green);
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 900px) {
+            .social-hub {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 600px) {
+            header { padding-top: 120px; }
+            .stake-logo { left: 50%; transform: translateX(-50%); top: 20px; }
+            .stake-logo:hover { transform: translateX(-50%) scale(1.05); }
+            .promo-box { flex-direction: column; width: 100%; border-radius: 20px; padding: 20px; }
+            .copy-btn { width: 100%; }
+            .cta-button { width: 100%; justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="container">
+        <!-- Stake Logo -->
+        <svg class="stake-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500">
+            <g id="Layer_5" data-name="Layer 5">
+                <path fill="currentColor" d="M25.68,56.89c-.1-26.47,16.84-41.15,47.94-41.26C96,15.55,100,30.19,100,35.51c0,10.19-14.42,21-14.42,21s.8,6.35,13.18,6.3,24.44-8.22,24.37-28.67C123.07,10.65,98.46-.09,74.13,0,53.78.07-.19,2.93,0,56.51c.18,47.59,90,51.79,90.07,82.26.12,33.09-37,42-49.56,42S22.84,171.88,22.82,167c-.09-26.8,26.58-34.26,26.58-34.26,0-2-1.56-10.91-11.89-10.87C10.9,121.92.3,144.8.38,167.14c.07,19,13.5,30.86,33.78,30.78,38.78-.14,82.51-19.06,82.35-61.08C116.37,97.54,25.79,87.28,25.68,56.89Z"></path>
+                <path fill="currentColor" d="M395.37,162.18c-.31-.75-1.18-.57-2.33.38-4.4,3.63-14.46,13.91-38,14-42.92.16-50.37-70.58-50.37-70.58s32.71-24.42,37.82-34.27-11.15-12-11.15-12-22.88,27.84-39.1,36C294,83.6,306,56,306.69,40.13s-19.11-12-22.27-10.48c0,6.93-17.49,69.84-23.86,104.42-3.75,6-9.11,12.86-13.91,12.87-2.78,0-3.8-5.15-3.83-12.53,0-10.24,5.64-26.65,5.6-36.62,0-6.9-3.17-7.31-5.9-7.3-.59,0-3.87.09-4.47.09-7,0-4.7-6-11-5.94-19.28.07-43.84,21.12-44.91,52.89-6.51,4.31-15.62,9.74-20.27,9.76-4.88,0-6.09-4.51-6.1-8.41,0-6.85,11.08-47.55,11.08-47.55s14.11-3.62,20.27-4.81c4.66-.91,6-1.25,7.81-3.5s5.35-6.9,8.21-11.08.05-7.41-5.24-7.39c-6.94,0-25.51,4.4-25.51,4.4s8.92-38.46,8.91-39.24-1-1.19-2.51-1.18c-3.38,0-9.41,1.82-13.27,3.2-5.91,2.11-10.72,9.35-11.69,12.72s-7.65,29.76-7.65,29.76-35.77,12.35-40.66,14.2a.74.74,0,0,0-.5.7c0,.32,4.09,16,12.48,15.94,6,0,23.63-7.22,23.63-7.22s-9.06,36-9,48c0,7.7,3.63,16.72,18.67,16.67,14,0,26.25-7.23,33.11-12.26,3.75,9.49,12.61,12.09,18.66,12.07,13.56,0,24-10.82,25.34-12.27,1.76,4.16,5.91,12.15,15.39,12.12,5.36,0,10.91-6,15-11.82a23.38,23.38,0,0,0,.05,3.63c1.64,14.92,23.79,6.15,25,4.07.75-10.79.28-32.85,4.59-46.47,5.72,46.46,27.42,77.71,66.43,77.57,21.81-.08,33-6.35,37.63-11.52A15.9,15.9,0,0,0,395.37,162.18ZM208.2,146.86c-18.73.07,5.73-48.48,21.71-48.54C229.93,104.58,229.58,146.79,208.2,146.86Z"></path>
+                <path fill="currentColor" d="M360.26,161.74c16.91-.06,30-11.19,32.4-14.81,3.1-4.71-3.6-11.82-5.73-11.7-5.34,5.11-10.92,11.29-23.45,11.33-14.75.06-11.41-16.17-11.41-16.17s28.39,3.67,39.8-16.74c3.65-6.53,3.8-15.56,2.33-19.45s-9.73-11.09-22.87-10c-16.14,1.36-36.48,18.19-40.95,38.4C326.79,138.86,333.58,161.84,360.26,161.74Zm18-68.1c2.66-.09,2.42,4.29,1.71,8.87-1,6.21-9.53,22-25.81,21.38C355.29,114.7,367.4,94,378.29,93.64Z"></path>
+            </g>
+        </svg>
+
+        <span class="badge"><i class="fa-solid =>-bolt"></i> Official Stake VIP Partner</span>
+        <h1>Stake Japan <span>Rakeback</span></h1>
+        <p>Activate instant rakeback passive earnings on every single wager you place.</p>
+
+        <!-- Interactive Promo Box -->
+        <div class="promo-box">
+            <span class="promo-code" id="codeText">ecosama5</span>
+            <button class="copy-btn" onclick="copyCode()"><i class="fa-regular fa-copy"></i> Copy Code</button>
+        </div>
+
+        <br>
+
+        <a href="https://www.stake.com/?c=ecosama5" target="_blank" class="cta-button">
+            Claim Instant Rakeback <i class="fa-solid fa-arrow-right-long"></i>
+        </a>
+    </header>
+
+    <main class="container">
+        <!-- Features Section -->
+        <section class="section">
+            <h2 class="section-title">Why Activate Code <span style="color:var(--neon-green)">ECOSAMA5</span>?</h2>
+            <p class="section-subtitle">Get the ultimate VIP treatment from day one without grinding thousands in wager volume.</p>
+
+            <div class="features">
+                <div class="feature glass">
+                    <i class="fa-solid fa-coins feature-icon"></i>
+                    <h3>Instant Rakeback</h3>
+                    <p>Earn a percentage of the house edge back on every single bet, win or lose. No level requirements needed.</p>
+                </div>
+                <div class="feature glass">
+                    <i class="fa-solid fa-bolt feature-icon"></i>
+                    <h3>Zero Waiting Period</h3>
+                    <p>Your rakeback accumulates in real-time. Claim your funds instantly straight to your balance whenever you want.</p>
+                </div>
+                <div class="feature glass">
+                    <i class="fa-solid fa-shield-halved feature-icon"></i>
+                    <h3>Fast Crypto Cashouts</h3>
+                    <p>Enjoy high-tier withdrawal limits and immediate automated crypto payouts on major networks.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Social Media Section -->
+        <section class="section">
+            <h2 class="section-title">Community & Live Updates</h2>
+            <p class="section-subtitle">Follow for daily bonus codes, giveaways, and exclusive VIP drops.</p>
+
+            <div class="social-hub">
+                <!-- Twitter Box -->
+                <div class="social-box glass">
+                    <div class="twitter-profile">
+                        <img src="https://pbs.twimg.com/profile_images/1892906625398124545/dWDRqmR6_400x400.jpg" alt="Profile Pic">
+                    </div>
+                    <h3 style="font-family: 'Rajdhani', sans-serif; font-size:1.5rem">X (Twitter) Feed</h3>
+                    <a href="https://x.com/616019" target="_blank" class="social-btn">
+                        <i class="fa-brands fa-x-twitter"></i> Follow @616019
+                    </a>
+
+                    <div class="tweets-container">
+                        <blockquote class="twitter-tweet" data-theme="dark"><p lang="en" dir="ltr">Stake<br>👇<a href="https://t.co/vGiqFLB0w6">https://t.co/vGiqFLB0w6</a> <a href="https://t.co/b7qGg2kF7a">pic.twitter.com/b7qGg2kF7a</a></p>&mdash; stake_eco (@616019) <a href="https://twitter.com/616019/status/1898124863598215545?ref_src=twsrc%5Etfw">March 7, 2025</a></blockquote>
+                        <blockquote class="twitter-tweet" data-theme="dark"><p lang="en" dir="ltr">STAKE<br>👇<a href="https://t.co/vGiqFLB0w6">https://t.co/vGiqFLB0w6</a> <a href="https://t.co/73Lro8qPe9">pic.twitter.com/73Lro8qPe9</a></p>&mdash; stake_eco (@616019) <a href="https://twitter.com/616019/status/1896909363308310880?ref_src=twsrc%5Etfw">March 4, 2025</a></blockquote>
+                    </div>
+                </div>
+
+                <!-- Instagram Box -->
+                <div class="social-box glass" style="justify-content: center;">
+                    <i class="fa-brands fa-instagram" style="font-size: 4rem; color: var(--neon-green); margin-bottom:20px; filter: drop-shadow(0 0 15px var(--neon-glow));"></i>
+                    <h3 style="font-family: 'Rajdhani', sans-serif; font-size:1.8rem; margin-bottom: 10px;">Instagram Drops</h3>
+                    <p style="color: #94a3b8; margin-bottom: 25px;">Check out clips, big wins, and exclusive monthly code drops on Instagram.</p>
+                    <a href="https://www.instagram.com/stake_eco?igsh=YWF0MTd6NDd4cnps&utm_source=qr" target="_blank" class="social-btn">
+                        <i class="fa-brands fa-instagram"></i> Follow on Instagram
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Stake Japan Partner | <a href="https://www.stake.com/?c=ecosama5" target="_blank">Sign Up with Code ECOSAMA5</a></p>
+    </footer>
+
+    <!-- Twitter Widgets JS -->
+    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+    <!-- Copy to Clipboard JS Script -->
+    <script>
+        function copyCode() {
+            const code = document.getElementById('codeText').innerText;
+            navigator.clipboard.writeText(code).then(() => {
+                const btn = document.querySelector('.copy-btn');
+                btn.innerHTML = '<i class="fa-solid fa-check"></i> Copied!';
+                btn.style.background = '#ffffff';
+                setTimeout(() => {
+                    btn.innerHTML = '<i class="fa-regular fa-copy"></i> Copy Code';
+                    btn.style.background = 'var(--neon-green)';
+                }, 2000);
+            });
+        }
+    </script>
+</body>
+</html>
